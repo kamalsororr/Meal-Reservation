@@ -5,16 +5,25 @@ function checkLogin() {
     const msg = document.getElementById("loginMessage");
 
     if (!nationalId || !name) {
-        msg.innerText = "يجب إدخال الاسم والرقم القومي";
+        msg.innerText = "❌ يجب إدخال الاسم والرقم القومي";
         return;
     }
 
-    document.getElementById("userName").value = name;
-    localStorage.setItem("nationalId", nationalId);
-    localStorage.setItem("userName", name);
-    msg.innerText = "✅ تم تسجيل الدخول بنجاح";
-    document.getElementById("login-section").style.display = "none";
-    document.getElementById("reservation-section").style.display = "block";
+    // تحقق من وجود الرقم القومي داخل جدول NationalIDs
+    firebase.database().ref("NationalIDs/" + nationalId).once("value", function(snapshot) {
+        if (snapshot.exists()) {
+            // الرقم موجود ✅
+            localStorage.setItem("nationalId", nationalId);
+            localStorage.setItem("userName", name);
+            document.getElementById("userName").value = name;
+            msg.innerText = "✅ تم تسجيل الدخول بنجاح";
+            document.getElementById("login-section").style.display = "none";
+            document.getElementById("reservation-section").style.display = "block";
+        } else {
+            // الرقم غير موجود ❌
+            msg.innerText = "❌ الرقم القومي غير مسجل في النظام";
+        }
+    });
 }
 
 function submitReservation() {
