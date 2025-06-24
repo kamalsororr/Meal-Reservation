@@ -16,7 +16,7 @@ header {
     height: 40px;
     vertical-align: middle;
     margin-right: 10px;
-    border-raduis: 50%;
+    border-radius: 50%;
 }
 main {
     background-color: rgba(0, 0, 0, 0.6);
