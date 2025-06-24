@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>الفوج 709 - حجز الوجبات</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body>
+    <header>
+        <h1>الفوج 709 حرب الكترونية <img src="assets/logo.jpg" alt="logo" class="logo"></h1>
+    </header>
+    <main id="login-section">
+        <h2>تسجيل الدخول</h2>
+        <input type="text" id="nationalIdInput" placeholder="الرقم القومي">
+        <input type="text" id="nameInput" placeholder="الاسم">
+        <button onclick="checkLogin()">دخول</button>
+        <p id="loginMessage"></p>
+    </main>
+    <main id="reservation-section" style="display:none;">
+        <h2>حجز الوجبة</h2>
+        <label>الاسم: <input type="text" id="userName" disabled></label><br>
+        <label><input type="checkbox" id="mealCheck"> هل تريد حجز الوجبة لليوم؟</label><br>
+        <button onclick="submitReservation()">حجز</button>
+        <p id="reservationMessage"></p>
+    </main>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
