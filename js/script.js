@@ -10,7 +10,7 @@ function checkLogin() {
     }
 
     // تحقق من وجود الرقم القومي داخل جدول NationalIDs
-    firebase.database().ref("reservation/NationalIDs" + nationalId).once("value", function(snapshot) {
+    firebase.database().ref("reservations/NationalIDs" + nationalId).once("value", function(snapshot) {
         if (snapshot.exists()) {
             // الرقم موجود ✅
             localStorage.setItem("nationalId", nationalId);
