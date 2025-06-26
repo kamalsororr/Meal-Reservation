@@ -1,29 +1,30 @@
-
 function checkLogin() {
     const nationalId = document.getElementById("nationalIdInput").value.trim();
     const name = document.getElementById("nameInput").value.trim();
     const msg = document.getElementById("loginMessage");
 
-    if (!nationalId || !name) {
-        msg.innerText = "❌ يجب إدخال الاسم والرقم القومي";
-        return;
-    }
+    console.log("🔍 التحقق من الرقم:", nationalId);
 
-    // تحقق من وجود الرقم القومي داخل جدول NationalIDs
-    firebase.database().ref("reservations/NationalIDs" + nationalId).once("value", function(snapshot) {
-        if (snapshot.exists()) {
-            // الرقم موجود ✅
-            localStorage.setItem("nationalId", nationalId);
-            localStorage.setItem("userName", name);
-            document.getElementById("userName").value = name;
+    firebase.database().ref("reservation/NationalIDs/" + nationalId)
+        .once("value")
+        .then(snapshot => {
+          if (snapshot.exists()) {
+            console.log("✅ الرقم موجود في Firebase");
             msg.innerText = "✅ تم تسجيل الدخول بنجاح";
             document.getElementById("login-section").style.display = "none";
             document.getElementById("reservation-section").style.display = "block";
-        } else {
-            // الرقم غير موجود ❌
+            localStorage.setItem("nationalId", nationalId);
+            localStorage.setItem("userName", name);
+            document.getElementById("userName").value = name;
+          } else {
+            console.log("❌ الرقم غير موجود في Firebase");
             msg.innerText = "❌ الرقم القومي غير مسجل في النظام";
-        }
-    });
+          }
+        })
+        .catch(err => {
+          console.error("❌ خطأ أثناء العملية:", err);
+          msg.innerText = "❌ حدث خطأ أثناء التحقق";
+        });
 }
 
 function submitReservation() {
