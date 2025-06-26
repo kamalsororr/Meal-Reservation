@@ -43,7 +43,7 @@ function submitReservation() {
 
     const day = now.getDate();
 
-    firebase.database().ref("reservations/" + nationalId).set({
+    firebase.database().ref("reservation/" + nationalId).set({
         name: name,
         ["day_" + day]: mealChecked
     }).then(() => {
