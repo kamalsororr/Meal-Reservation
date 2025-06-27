@@ -48,7 +48,7 @@ function submitReservation() {
         ["day_" + day]: mealChecked
     };
 
-    firebase.database().ref("reservation/reservations/" + nationalId)
+    firebase.database().ref("reservation/" + nationalId)
         .set(data)
         .then(() => {
             msg.innerText = "✅ تم الحجز بنجاح";
